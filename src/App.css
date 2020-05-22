@@ -52,7 +52,7 @@ nav a:visited {
 }
 
 nav a:hover {
-  color: hotpink;
+  color: #CF5E23;
 }
 
 .red {
@@ -248,6 +248,7 @@ nav a:hover {
   grid-template-columns: auto auto auto auto auto;
   margin-top: 5%;
   padding: 0 20px;
+  font-family: fantasy;
 }
 
 .gameCard {

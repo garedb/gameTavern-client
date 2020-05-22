@@ -213,10 +213,6 @@ const Profile = props => {
           </div>
         </div>
       </div>
-      <h2>
-        {props.user.firstname} {props.user.lastname}
-      </h2>
-      <h2>{secretMessage}</h2>
     </div>
   )
 }
