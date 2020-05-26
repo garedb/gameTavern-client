@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import youtube from '../../images/youtube.png'
 import twitch from '../../images/twitch.jpg'
 import mixer from '../../images/mixer.png'
@@ -10,12 +10,10 @@ import EditButton from '../components/EditButton'
 
 const Profile = props => {
   let [secretMessage, setSecretMessage] = useState('')
-  let [favsId, setFavsId] = useState([])
+  let [favGames, setFavGames] = useState([])
+  let [friends, setFriends] = useState([])
   
-
-
- 
-
+  
 
   useEffect(() => {
     // Get the token from local storage
@@ -40,22 +38,27 @@ const Profile = props => {
         console.log(result)
         setSecretMessage(result.message)
       })
+      .then(() => {
+        
+      })
     })
     .catch(err => {
       console.log(err)
-      setSecretMessage('No message for you!')
+      setSecretMessage('No message for you, only for me!')
     })
     if(props.user) {
       getGames()
+      getFriends()
+      
     }
-  }, [])
+  },[])
+
+
 
   // Make sure there is a user before trying to show their info
   if (!props.user) {
     return <Redirect to="/login" />
-  } else {
-    console.log(props.user.games)
-  }
+  } 
 
   const getGames = () => {
       console.log('get games')
@@ -68,8 +71,13 @@ const Profile = props => {
       })
        .then(response => response.json()
         .then(results => {
+
           console.log(results)
-          setFavsId(results)
+          setFavGames(results)
+
+          // console.log(results)
+          // setFavsId(results)
+
 
           
         })
@@ -81,7 +89,52 @@ const Profile = props => {
         console.log(err)
       })
     }
-    getGames()
+
+  let loopFavs = favGames.map((f, i) => {
+    console.log(f)
+
+    return (
+      <div>{f}</div>
+      )
+
+  })
+
+  let loopFriends = friends.map((f, i) => {
+      return (
+        <div key={i} onClick={() => props.setCurrentView(f)}><p>{f}</p>
+        <Link to='/viewProfile'>Go to Their page</Link>
+        </div>
+      )
+    })
+
+  const getFriends = () => {
+    console.log('get friends')
+    console.log(props.user)
+    
+    fetch(process.env.REACT_APP_SERVER_URL + 'auth/userFriends/' + props.user.username, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+     .then(response => response.json()
+      .then(results => {
+        console.log(results)
+        setFriends(results)
+        
+        
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    )
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+
+
 
   let steamId;
   if (props.user.tags.steamId) {
@@ -223,7 +276,19 @@ const Profile = props => {
           <div className="userGames">
             <div>
               <h2>Favorite Games</h2>
-            
+
+              <div className="gamersReturn">
+              {loopFavs}
+
+              </div>
+            </div>
+            <div>
+            <h2>Friend List</h2>
+            <div className="gamersReturn">
+            {loopFriends}
+
+            </div>
+
             </div>
           </div>
         </div>
@@ -252,8 +317,11 @@ const Profile = props => {
       <div>
         <EditButton />
       </div>
+<<<<<<< HEAD
       
 >>>>>>> adcae4699c12bcb9c7e7945efd19e5c89f5b2125
+=======
+>>>>>>> dbae8cea07b247778438c8de1a66992a995315b6
     </div>
   )
 }

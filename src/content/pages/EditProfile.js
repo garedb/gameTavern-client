@@ -28,15 +28,9 @@ const EditProfile = props => {
     let panels = [{ title: (<h3>Gamer Profile</h3>), content: (
         <div className="userInputs">
                 <div>
-                  <input className="textInputs" id="username" label="Username" name="username" placeholder="Username" onChange={e => setUsername(e.target.value)} />
-                </div>
-                <div>
                   <input className="textInputs" id="firstname" label="First Name" name="firstname" placeholder="Your first name" onChange={e => setFirstname(e.target.value)} />
                   <input className="textInputs" id="lastname" label="Last Name" name="lastname" placeholder="Your last name" onChange={e => setLastname(e.target.value)} /> 
-                
-                  <input className="textInputs" id="email" label="Email" type="email" name="email" placeholder="Email" onChange={e => setEmail(e.target.value)} />
-                  <input className="textInputs" id="password" label="Password" type="password" name="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
-                
+            
                   <input className="textInputs" id="profileUrl" label="Profile Pic Url" type="url" name="profileUrl" placeholder="Profile Pic URL" onChange={e => setProfileUrl(e.target.value)} />
                   <input className="textInputs" id="backgroundUrl" label="Background Pic Url" type="url" name="backgroundUrl" placeholder="Background Pic URL" onChange={e => setBackgroundUrl(e.target.value)} />
                 </div>
@@ -82,11 +76,8 @@ const EditProfile = props => {
         console.log('submit', email, password)
         //  Fetch call to POST data
         fetch(process.env.REACT_APP_SERVER_URL + 'auth/signup', {
-          method: 'POST',
+          method: 'PUT',
           body: JSON.stringify({
-            username,
-            email,
-            password,
             firstname,
             lastname,
             pic: profileUrl,
@@ -133,7 +124,7 @@ const EditProfile = props => {
         })
       }
     
-      if (props.user) {
+      if (!props.user) {
         return <Redirect to="/profile" />
       }
     
