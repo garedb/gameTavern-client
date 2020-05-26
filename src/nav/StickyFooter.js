@@ -8,7 +8,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="white">
       {'Copyright © '}
-      Adam Honore, Gared Barney, Stefan Pazevic{' '}
+      Adam Honore, Gared Barney, and Stefan Pazevic{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -28,6 +28,7 @@ export default function StickyFooter() {
   return (
       <footer className={classes.footer}>
         <Container maxWidth="sm">
+          <Typography variant="body1">Nick Quandt assumes all liability and legal responsibilty for this website.</Typography>
           <Copyright />
         </Container>
       </footer>
