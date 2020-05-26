@@ -312,16 +312,9 @@ const Profile = props => {
           </div>
         </div>
       </div>
-<<<<<<< HEAD
-=======
       <div>
         <EditButton />
       </div>
-<<<<<<< HEAD
-      
->>>>>>> adcae4699c12bcb9c7e7945efd19e5c89f5b2125
-=======
->>>>>>> dbae8cea07b247778438c8de1a66992a995315b6
     </div>
   )
 }
